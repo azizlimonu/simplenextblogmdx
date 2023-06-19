@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import styles from './tagfilter.module.scss';
+import clsx from 'clsx';
 
 const TagFilter = ({ tags, selectedTag, setSelectedTag, className }) => {
   const router = useRouter();
@@ -16,7 +17,7 @@ const TagFilter = ({ tags, selectedTag, setSelectedTag, className }) => {
           )}
           onClick={() => {
             setSelectedTag(tag);
-            router.push('/');
+            // router.push('/');
           }}
         >
           {tag}

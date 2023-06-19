@@ -1,12 +1,39 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import matter from 'gray-matter';
+import fs from 'fs';
+import path from 'path';
+import { useEffect, useState } from 'react';
+
 import styles from '../styles/Home.module.css'
 import HeroSection from '../components/Home/Index'
 import { postFileNames, postsPath } from '../utils/mdxUtils'
-import matter from 'gray-matter'
+import BlogList from '../components/Blog/BlogList'
+import TagFilter from '../components/Blog/TagFilter'
 
 export default function Home({ posts }) {
-  console.log(posts);
+
+  const [selectedTag, setSelectedTag] = useState("all");
+  const [filteredPost, setFilteredPost] = useState(posts);
+
+  // Get All Tags 
+  const allTagsSet = posts.reduce((acc, post) => {
+    post.frontmatter.tags?.map((tag) => acc.add(tag));
+    return acc;
+  }, new Set([]));
+
+  // // convert Tag Set To Array
+  const allTags = [...allTagsSet].sort((a, b) => a.localeCompare(b));
+  allTags.unshift("all");
+
+  // filter the post according to the tag
+  useEffect(() => {
+    const filtered = posts.filter(
+      post => post.frontmatter.tags.includes(selectedTag) || selectedTag === 'all'
+    );
+
+    setFilteredPost(filtered);
+  }, [posts, selectedTag]);
 
   return (
     <>
@@ -17,6 +44,14 @@ export default function Home({ posts }) {
       </Head>
 
       <HeroSection />
+      {/* Blog Tags */}
+      <TagFilter
+        selectedTag={selectedTag}
+        setSelectedTag={setSelectedTag}
+        tags={allTags}
+      />
+      <BlogList posts={filteredPost} />
+      {/* Pagination */}
     </>
 
   )

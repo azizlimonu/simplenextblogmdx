@@ -3,17 +3,28 @@ import styles from './bloglist.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import Text from '../Typography/Text';
+import { format } from 'date-fns';
+import noImage from '/public/noimage.png'
 
 const BlogList = ({ posts }) => {
   return (
-    <div className={classes.container}>
+    <div className={styles.container}>
       {posts?.map((post) => (
-        <div className={classes.item} key={post.slug}>
+        <div className={styles.item} key={post.slug}>
 
-          {post.frontmatter.bannerUrl && (
-            <div className={classes.bannerImg}>
+          {post.frontmatter.bannerUrl ? (
+            <div className={styles.bannerImg}>
               <Image
                 src={post.frontmatter.bannerUrl}
+                alt={post.frontmatter.title}
+                objectFit="cover"
+                layout="fill"
+              />
+            </div>
+          ) : (
+            <div className={styles.bannerImg}>
+              <Image
+                src="/noimage.png"
                 alt={post.frontmatter.title}
                 objectFit="cover"
                 layout="fill"
@@ -22,17 +33,17 @@ const BlogList = ({ posts }) => {
           )}
 
           <Link href={`/blogs/${post.slug}`}>
-            <a className={classes.blogTitle}>{post.frontmatter.title}</a>
+            <a className={styles.blogTitle}>{post.frontmatter.title}</a>
           </Link>
 
           {post.frontmatter.date && (
-            <Text className={classes.blogDate}>
+            <Text className={styles.blogDate}>
               {format(new Date(post.frontmatter.date), 'PPP')}
             </Text>
           )}
 
           {post.frontmatter.tags && (
-            <Text className={classes.tags}>
+            <Text className={styles.tags}>
               Tags:{' '}
 
               {post.frontmatter.tags.map((tag, index, tags) => (
@@ -46,11 +57,11 @@ const BlogList = ({ posts }) => {
           )}
 
           {post.frontmatter.description && (
-            <Text className={classes.description}>
+            <Text className={styles.description}>
               {post.frontmatter.description}
             </Text>
           )}
-          
+
         </div>
       ))}
     </div>
