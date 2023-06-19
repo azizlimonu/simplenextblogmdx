@@ -9,7 +9,7 @@ const HeroSection = () => {
     <div className={styles.heroSection}>
       <div className={styles.profileImg}>
         <Image
-          src="/profile.png"
+          src="/profilee.png"
           alt='profile'
           width={200}
           height={200}
