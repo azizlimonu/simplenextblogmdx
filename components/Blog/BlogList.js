@@ -12,19 +12,15 @@ const BlogList = ({ posts }) => {
       {posts?.map((post) => (
         <div className={styles.item} key={post.slug}>
 
-          {post.frontmatter.bannerUrl ? (
+          {post.frontmatter && (
             <div className={styles.bannerImg}>
               <Image
-                src={post.frontmatter.bannerUrl}
-                alt={post.frontmatter.title}
-                objectFit="cover"
-                layout="fill"
-              />
-            </div>
-          ) : (
-            <div className={styles.bannerImg}>
-              <Image
-                src="/noimage.png"
+                // src={noImage}
+                src={
+                  post.frontmatter.bannerUrl
+                    ? post.frontmatter.bannerUrl
+                    : noImage
+                }
                 alt={post.frontmatter.title}
                 objectFit="cover"
                 layout="fill"
@@ -32,7 +28,7 @@ const BlogList = ({ posts }) => {
             </div>
           )}
 
-          <Link href={`/blogs/${post.slug}`}>
+          <Link href={`/blog/${post.slug}`}>
             <a className={styles.blogTitle}>{post.frontmatter.title}</a>
           </Link>
 

@@ -2,6 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import { serialize } from 'next-mdx-remote/serialize';
 import matter from 'gray-matter';
+import rehypeHighlight from 'rehype-highlight';
 
 import { postFileNames, postsPath } from '../../utils/mdxUtils';
 import SingleBlog from '../../components/Blog/SingleBlog';

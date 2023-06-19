@@ -1,20 +1,24 @@
 import Link from "next/link"
 import styles from './singleblog.module.scss';
 import { LeftArrow, UpArrow } from "../Icons";
+import BlogHeader from "./BlogHeader";
+import BlogContent from "./BlogContent";
 
 const SingleBlog = ({ MdxSource, frontmatter }) => {
   return (
     <div className={styles.blogContainer}>
       <Link href="/">
-        <LeftArrow />
-        Home
+        <div className={styles.link}>
+          <LeftArrow />
+          Home
+        </div>
       </Link>
 
-      {/* Blog Header */}
-      {/* Blog Content */}
+      <BlogHeader frontmatter={frontmatter} />
+      <BlogContent MdxSource={MdxSource} />
 
       <button
-        className={classes.scrollToTop}
+        className={styles.scrollToTop}
         type="button"
         onClick={() => {
           window.scrollTo(0, 0);

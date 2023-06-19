@@ -44,14 +44,12 @@ export default function Home({ posts }) {
       </Head>
 
       <HeroSection />
-      {/* Blog Tags */}
       <TagFilter
         selectedTag={selectedTag}
         setSelectedTag={setSelectedTag}
         tags={allTags}
       />
       <BlogList posts={filteredPost} />
-      {/* Pagination */}
     </>
 
   )
